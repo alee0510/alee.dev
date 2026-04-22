@@ -1,0 +1,185 @@
+<div id="drawer-backdrop" class="drawer__backdrop"></div>
+<aside
+  id="mobile-drawer"
+  class="drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation menu"
+  aria-hidden="true"
+>
+  <!-- close button -->
+  <div class="drawer__close-btn">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      class="drawer__close-btn__svg"
+      id="drawer-close"
+      ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+    >
+  </div>
+</aside>
+
+<style>
+  .drawer {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    z-index: 1100;
+    width: min(100vw, 420px);
+    height: 100dvh;
+    background: var(--neutral-50);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(-100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+
+  .drawer--open {
+    transform: translateX(0);
+  }
+
+  .drawer__backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--tertiary-80);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+
+  .drawer__backdrop.is-visible {
+    display: block;
+  }
+
+  .drawer__backdrop--open {
+    opacity: 1;
+  }
+
+  .drawer__close-btn {
+    padding: var(--space-md);
+    pointer-events: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .drawer__close-btn__svg {
+    fill: none;
+    height: var(--space-2xl);
+    width: var(--space-2xl);
+    stroke: var(--secondary-400);
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  @media (min-width: 768px) {
+    .drawer,
+    .drawer__backdrop {
+      display: none !important;
+    }
+  }
+
+  :global(body.drawer--open) {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  function main() {
+    const humberger = document.getElementById(
+      'humberger-menu'
+    ) as HTMLElement | null;
+    const drawer = document.getElementById(
+      'mobile-drawer'
+    ) as HTMLElement | null;
+    const backdrop = document.getElementById(
+      'drawer-backdrop'
+    ) as HTMLElement | null;
+    const closeBtn = document.getElementById(
+      'drawer-close'
+    ) as HTMLButtonElement | null;
+    // Trap focus inside drawer
+    const focusableSelectors =
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function trapFocus(e: KeyboardEvent) {
+      if (!drawer) return;
+      const focusAble = Array.from(
+        drawer.querySelectorAll<HTMLElement>(focusableSelectors)
+      );
+      const first = focusAble[0];
+      const last = focusAble[focusAble.length - 1];
+
+      if (e.key === 'Tab' && e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+
+      if (e.key === 'Tab' && !e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+
+      if (e.key === 'Escape') closeDrawer();
+    }
+
+    function openDrawer() {
+      backdrop!.style.display = 'block';
+      void backdrop!.offsetHeight;
+
+      backdrop!.classList.add('drawer__backdrop--open');
+      drawer!.classList.add('drawer--open');
+      drawer!.setAttribute('aria-hidden', 'false');
+      humberger!.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('drawer--open');
+      document.addEventListener('keydown', trapFocus);
+
+      const firstFocusAble =
+        drawer!.querySelector<HTMLElement>(focusableSelectors);
+      firstFocusAble?.focus();
+    }
+
+    function closeDrawer() {
+      backdrop!.classList.remove('drawer__backdrop--open');
+      drawer!.classList.remove('drawer--open');
+      drawer!.setAttribute('aria-hidden', 'true');
+      humberger!.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('drawer--open');
+      document.removeEventListener('keydown', trapFocus);
+
+      backdrop!.addEventListener(
+        'transitionend',
+        () => {
+          backdrop!.style.display = 'none';
+        },
+        { once: true }
+      );
+
+      humberger!.focus();
+    }
+
+    // attach event listeners
+    humberger?.addEventListener('click', () => {
+      const isOpen = drawer!.classList.contains('drawer--open');
+      isOpen ? closeDrawer() : openDrawer();
+    });
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+
+    // close drawer on nav link click (SPA-style navigation)
+    drawer
+      ?.querySelectorAll<HTMLAnchorElement>('.drawer__nav-link, .drawer__cta')
+      .forEach((link) => {
+        link.addEventListener('click', closeDrawer);
+      });
+  }
+
+  main();
+</script>
