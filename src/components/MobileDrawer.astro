@@ -1,3 +1,36 @@
+---
+import type { Link } from '@/types';
+
+interface Props {
+  links: Link[];
+}
+
+const SocialMediaLinks: Link[] = [
+  {
+    id: '01',
+    label: 'INSTAGRAM',
+    href: '/instagram',
+  },
+  {
+    id: '02',
+    label: 'LINKEDIN',
+    href: '/linkedin',
+  },
+  {
+    id: '03',
+    label: 'TWITTER',
+    href: '/twitter',
+  },
+  {
+    id: '04',
+    label: 'GITHUB',
+    href: '/github',
+  },
+];
+
+const { links = [] } = Astro.props;
+---
+
 <div id="drawer-backdrop" class="drawer__backdrop"></div>
 <aside
   id="mobile-drawer"
@@ -8,14 +41,55 @@
   aria-hidden="true"
 >
   <!-- close button -->
-  <div class="drawer__close-btn">
+  <div class="drawer__header">
+    <div class="drawer__header__brand">TECHNICAL CURATOR</div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      class="drawer__close-btn__svg"
+      class="drawer__close-btn"
       id="drawer-close"
       ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
     >
+  </div>
+
+  <p class="drawer__index__section">00&nbsp;/&nbsp;INDEX</p>
+
+  <!-- drawer navigation -->
+  <nav
+    id="mobile-navigation"
+    class="drawer__nav"
+    aria-label="mobile-navigation"
+  >
+    {
+      links.map((link) => (
+        <a class="drawer__nav__link">
+          <span>{link.id}&nbsp;/</span>
+          <span>{link.label}</span>
+        </a>
+      ))
+    }
+  </nav>
+
+  <a class="drawer__cta"
+    >HIRE ME <span class="cta-arrow" aria-hidden="true">&rarr;</span></a
+  >
+
+  <div class="drawer__footer">
+    <div class="drawer__footer__status"></div>
+    <div class="drawer__footer__version"></div>
+  </div>
+
+  <div class="drawer__social">
+    {
+      SocialMediaLinks.map((link) => (
+        <a class="drawer__social__link">{link.label}</a>
+      ))
+    }
+  </div>
+
+  <div class="drawer__locale">
+    <span>JAKARTA, ID</span>
+    <span class="drawer__locale__time" id="locale-time">GMT+7 / --:--:--</span>
   </div>
 </aside>
 
@@ -59,17 +133,22 @@
     opacity: 1;
   }
 
-  .drawer__close-btn {
+  .drawer__header {
     padding: var(--space-md);
     pointer-events: none;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
   }
 
-  .drawer__close-btn__svg {
+  .drawer__header__brand {
+    flex: 1;
+    font-size: var(--text-lg);
+  }
+
+  .drawer__close-btn {
     fill: none;
-    height: var(--space-2xl);
-    width: var(--space-2xl);
+    height: var(--space-xl);
+    width: var(--space-xl);
     stroke: var(--secondary-400);
     stroke-width: 1.5px;
     stroke-linecap: round;
