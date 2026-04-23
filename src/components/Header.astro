@@ -2,6 +2,35 @@
 import Button from './Button.astro';
 import HumburgerMenu from './HumburgerMenu.astro';
 import MobileDrawer from './MobileDrawer.astro';
+
+interface NavigationItem {
+  id: string;
+  label: string;
+  href: string;
+}
+
+const NavigationItems: NavigationItem[] = [
+  {
+    id: '01',
+    label: 'WORK',
+    href: '/work',
+  },
+  {
+    id: '02',
+    label: 'BLOG',
+    href: '/blog',
+  },
+  {
+    id: '03',
+    label: 'ABOUT',
+    href: '/about',
+  },
+  {
+    id: '04',
+    label: 'HIRE ME',
+    href: '/hire me',
+  },
+];
 ---
 
 <header class="header">
@@ -10,9 +39,15 @@ import MobileDrawer from './MobileDrawer.astro';
 
     <!-- Desktop Only -->
     <div class="nav__links" id="nav-links">
-      <span class="nav__link nav__link--active">WORK</span>
-      <span class="nav__link">BLOG</span>
-      <span class="nav__link">ABOUT</span>
+      {
+        NavigationItems.slice(0, 3).map((item, index) => {
+          return (
+            <a class={`nav__link ${item.id == '01' && 'nav__link--active'}`}>
+              {item.label}
+            </a>
+          );
+        })
+      }
       <div class="nav__underline" id="nav-underline"></div>
     </div>
     <Button
@@ -32,6 +67,7 @@ import MobileDrawer from './MobileDrawer.astro';
     <HumburgerMenu />
   </nav>
 </header>
+
 <MobileDrawer />
 
 <style>
@@ -74,6 +110,7 @@ import MobileDrawer from './MobileDrawer.astro';
     cursor: pointer;
     user-select: none;
     transition: color 0.2s ease;
+    text-decoration: none;
   }
 
   .nav__link--active {
