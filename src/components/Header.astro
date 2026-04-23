@@ -2,14 +2,9 @@
 import Button from './Button.astro';
 import HumburgerMenu from './HumburgerMenu.astro';
 import MobileDrawer from './MobileDrawer.astro';
+import type { Link } from '@/types';
 
-interface NavigationItem {
-  id: string;
-  label: string;
-  href: string;
-}
-
-const NavigationItems: NavigationItem[] = [
+const NavigationLinks: Link[] = [
   {
     id: '01',
     label: 'WORK',
@@ -34,16 +29,16 @@ const NavigationItems: NavigationItem[] = [
 ---
 
 <header class="header">
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <div class="nav__brand">@LEE.DEV/V1.0.1</div>
 
     <!-- Desktop Only -->
     <div class="nav__links" id="nav-links">
       {
-        NavigationItems.slice(0, 3).map((item, index) => {
+        NavigationLinks.slice(0, 3).map((link, index) => {
           return (
-            <a class={`nav__link ${item.id == '01' && 'nav__link--active'}`}>
-              {item.label}
+            <a class={`nav__link ${link.id == '01' && 'nav__link--active'}`}>
+              {link.label}
             </a>
           );
         })
@@ -68,7 +63,7 @@ const NavigationItems: NavigationItem[] = [
   </nav>
 </header>
 
-<MobileDrawer />
+<MobileDrawer links={NavigationLinks} />
 
 <style>
   .header {
