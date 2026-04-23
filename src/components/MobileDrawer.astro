@@ -8,21 +8,16 @@ interface Props {
 const SocialMediaLinks: Link[] = [
   {
     id: '01',
-    label: 'INSTAGRAM',
-    href: '/instagram',
-  },
-  {
-    id: '02',
     label: 'LINKEDIN',
     href: '/linkedin',
   },
   {
-    id: '03',
+    id: '02',
     label: 'TWITTER',
     href: '/twitter',
   },
   {
-    id: '04',
+    id: '03',
     label: 'GITHUB',
     href: '/github',
   },
@@ -70,13 +65,32 @@ const { links = [] } = Astro.props;
     }
   </nav>
 
-  <a class="drawer__cta"
-    >HIRE ME <span class="cta-arrow" aria-hidden="true">&rarr;</span></a
-  >
+  <div class="drawer__cta">
+    <a class="drawer__cta__link">
+      HIRE ME <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        class="drawer__cta__link__arrow"
+        ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+      ></a
+    >
+  </div>
 
   <div class="drawer__footer">
-    <div class="drawer__footer__status"></div>
-    <div class="drawer__footer__version"></div>
+    <div class="drawer__footer__content">
+      <span class="drawer__footer__content__label">STATUS</span>
+      <div class="drawer__footer__content__value">
+        <span class="drawer__footer__content__status-dot" aria-hidden="true"
+        ></span>
+        <span>AVAILABLE FOR PROJECTS</span>
+      </div>
+    </div>
+    <div class="drawer__footer__content">
+      <span class="drawer__footer__content__label">VERSION</span>
+      <span class="drawer__footer__content__value"
+        >V1.0.1&nbsp;//&nbsp;STABLE</span
+      >
+    </div>
   </div>
 
   <div class="drawer__social">
@@ -88,7 +102,7 @@ const { links = [] } = Astro.props;
   </div>
 
   <div class="drawer__locale">
-    <span>JAKARTA, ID</span>
+    <span class="drawer__locale__id">JAKARTA, ID</span>
     <span class="drawer__locale__time" id="locale-time">GMT+7 / --:--:--</span>
   </div>
 </aside>
@@ -107,6 +121,9 @@ const { links = [] } = Astro.props;
     transform: translateX(-100%);
     transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
   }
 
   .drawer--open {
@@ -155,6 +172,150 @@ const { links = [] } = Astro.props;
     stroke-linejoin: round;
     cursor: pointer;
     pointer-events: auto;
+  }
+
+  .drawer__index__section {
+    font-size: var(--text-sm);
+    color: var(--secondary-300);
+  }
+
+  .drawer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .drawer__nav__link {
+    border-bottom: 0.7px solid var(--tertiary-20);
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    letter-spacing: 0.02rem;
+    padding-bottom: var(--space-md);
+  }
+
+  .drawer__cta__link {
+    background: var(--tertiary-800);
+    color: var(--neutral-50);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-lg);
+    font-size: var(--text-lg);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .drawer__cta__link__arrow {
+    width: var(--space-lg);
+    height: var(--space-lg);
+    fill: none;
+    stroke: var(--neutral-50);
+    stroke-width: 2px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .drawer__cta__link:hover {
+    background: var(--tertiary-60);
+  }
+
+  .drawer__cta__link:hover .drawer__cta__link__arrow {
+    transform: translateX(var(--space-sm));
+  }
+
+  .drawer__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .drawer__footer__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    font-size: var(--text-xs);
+  }
+
+  .drawer__footer__content__label {
+    font-size: var(--text-xs);
+    color: var(--secondary-300);
+  }
+
+  .drawer__footer__content__value {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .drawer__footer__content__status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary-500);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--primary-60);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 2px var(--primary-60);
+    }
+    50% {
+      box-shadow: 0 0 0 4px var(--primary-90);
+    }
+  }
+
+  .drawer__social {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .drawer__social__link {
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    font-size: var(--text-sm);
+    color: var(--secondary-400);
+    transition: color 0.2s ease;
+  }
+
+  .drawer__social a:hover {
+    color: var(--primary-400);
+  }
+
+  .drawer__locale {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+  }
+
+  .drawer__locale__id {
+    font-size: var(--text-xs);
+    color: var(--secondary-300);
+  }
+
+  .drawer__locale__time {
+    font-size: var(--text-sm);
+    color: var(--primary-400);
+  }
+
+  .drawer__index__section,
+  .drawer__nav,
+  .drawer__cta,
+  .drawer__footer,
+  .drawer__social,
+  .drawer__locale {
+    padding: var(--space-sm) var(--space-xl);
   }
 
   @media (min-width: 768px) {
