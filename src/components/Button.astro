@@ -13,10 +13,11 @@ interface Props {
       'background-color'?: string;
     };
   };
+  icon?: boolean;
   class?: string;
 }
 
-const { styles = {}, class: className, ...props } = Astro.props;
+const { styles = {}, icon = false, class: className, ...props } = Astro.props;
 
 const variables = {
   '--button-fill': styles?.['background-color'] || '#ff542d',
@@ -42,7 +43,7 @@ const variables = {
       d="M 14,0 L 334,0 Q 340,0 340,6 L 340,39 Q 340,42 337,45 L 329,53 Q 326,56 323,56 L 6,56 Q 0,56 0,50 L 0,17 Q 0,14 3,11 L 11,3 Q 14,0 14,0 Z"
     ></path>
   </svg>
-  <span class="button__text">
+  <span class={`button__text ${icon && 'button__text--with-icon'}`}>
     <slot />
   </span>
 </div>
@@ -77,6 +78,13 @@ const variables = {
     line-height: 1;
     pointer-events: none;
     transition: color 0.3s ease;
+  }
+
+  .button__text--with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
   }
 
   .button__path {
