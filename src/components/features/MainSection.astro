@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
 import RightArrowIcon from '@/assets/icons/RightArrowIcon.astro';
-import persona from '@/assets/images/persona.webp';
+import Persona from '@/assets/images/persona.webp';
 ---
 
 <section id="main-banner" class="banner">
@@ -54,12 +54,11 @@ import persona from '@/assets/images/persona.webp';
   </div>
   <div class="banner__persona">
     <Image
-      src={persona}
+      src={Persona}
       class="banner_image"
       alt="persona-image"
       width="400"
       height="533"
-      client:media="(min-width:768px)"
     />
     <div class="banner__version">V.24</div>
   </div>
