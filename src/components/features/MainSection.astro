@@ -59,6 +59,7 @@ import persona from '@/assets/images/persona.webp';
       alt="persona-image"
       width="400"
       height="533"
+      client:media="(min-width:768px)"
     />
     <div class="banner__version">V.24</div>
   </div>
@@ -66,27 +67,19 @@ import persona from '@/assets/images/persona.webp';
 
 <style>
   .banner {
-    display: flex;
-    justify-content: space-between;
     margin: 0 auto;
-    padding: var(--gutter-4xl) var(--gutter-xl);
+    padding: var(--gutter-xl) var(--gutter-lg);
     max-width: var(--screen-xl);
-    gap: var(--space-3xl);
-  }
-
-  .banner__content {
-    display: flex;
-    flex-direction: column;
   }
 
   .banner__intro {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--primary-400);
     font-weight: 500;
   }
 
   .banner__title {
-    font-size: var(--text-5xl);
+    font-size: var(--text-3xl);
     color: var(--secondary-900);
     margin-block-start: 0;
     margin-block-end: 0;
@@ -95,18 +88,27 @@ import persona from '@/assets/images/persona.webp';
   .banner__desc {
     font-size: var(--text-base);
     color: var(--secondary-400);
-    margin-block: var(--gutter-xl);
+    margin-block: var(--gutter-lg);
+  }
+
+  .banner__intro,
+  .banner__title,
+  .banner__desc {
+    text-align: center;
   }
 
   .banner__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--gutter-md);
+    display: flex;
+    justify-content: center;
   }
 
   .banner__view-work,
   .banner__get-in-touch {
     min-height: var(--gutter-md);
+  }
+
+  .banner__get-in-touch {
+    display: none;
   }
 
   .banner__arrow {
@@ -118,8 +120,8 @@ import persona from '@/assets/images/persona.webp';
   }
 
   .banner__persona {
+    display: none;
     position: relative;
-    display: inline-block;
   }
 
   .banner__image {
@@ -133,10 +135,53 @@ import persona from '@/assets/images/persona.webp';
     left: 0;
     background-color: var(--primary-500);
     transform: translate(-15px, 15px);
-    padding: var(--gutter-md);
+    padding: var(--gutter-sm);
     font-size: var(--text-2xl);
     font-weight: bold;
     letter-spacing: 0.04rem;
     color: var(--neutral-50);
+  }
+
+  @media (width >= 768px) {
+    .banner {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: var(--gutter-4xl) var(--gutter-xl);
+      gap: var(--space-3xl);
+    }
+
+    .banner__intro {
+      font-size: var(--text-sm);
+    }
+
+    .banner__desc {
+      margin-block: var(--gutter-xl);
+    }
+
+    .banner__title {
+      font-size: var(--text-5xl);
+    }
+
+    .banner__intro,
+    .banner__title,
+    .banner__desc {
+      text-align: left;
+    }
+
+    .banner__cta {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: var(--gutter-md);
+    }
+
+    .banner__persona {
+      display: inline-block;
+    }
+
+    .banner__get-in-touch {
+      display: block;
+    }
   }
 </style>
