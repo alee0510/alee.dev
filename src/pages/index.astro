@@ -1,9 +1,150 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
 import Header from '@/components/Header.astro';
+import Button from '@/components/Button.astro';
+import RightArrowIcon from '@/assets/icons/RightArrowIcon.astro';
+import persona from '@/assets/images/persona.webp';
 ---
 
 <Layout>
   <Header slot="header" />
-  <!-- <h1>Hellow</h1> -->
+  <section id="main-banner" class="banner">
+    <div class="banner__content">
+      <p class="banner__intro">00&nbsp;/&nbsp;INTRODUCTION</p>
+      <h1 class="banner__title">Crafting Digital Experience</h1>
+      <p class="banner__desc">
+        A technical curator specialized in high-perfomance web system and
+        editorial-grade user interface for foward thinking engineering firm.
+      </p>
+      <div class="banner__cta">
+        <Button
+          class="banner__view-work"
+          icon={true}
+          styles={{
+            padding: 'var(--gutter-sm) var(--gutter-2xl)',
+            'background-color': 'var(--tertiary-900)',
+            'border-color': 'var(--tertiary-900)',
+            hover: {
+              color: 'var(--neutral-50)',
+              'background-color': 'var(--tertiary-400)',
+            },
+          }}
+        >
+          VIEW WORK
+          <RightArrowIcon
+            class="banner__arrow"
+            size="var(--text-2xl)"
+            stroke-width="1.5"
+          />
+        </Button>
+        <Button
+          class="banner__get-in-touch"
+          styles={{
+            padding: 'var(--gutter-sm) var(--gutter-2xl)',
+            color: 'var(--secondary-800)',
+            'background-color': 'transparent',
+            'border-width': '3',
+            'border-color': 'var(--tertiary-900)',
+            hover: {
+              color: 'var(--neutral-50)',
+              'background-color': 'var(--tertiary-900)',
+            },
+          }}
+        >
+          GET IN TOUCH
+        </Button>
+      </div>
+    </div>
+    <div class="banner__persona">
+      <Image
+        src={persona}
+        class="banner_image"
+        alt="persona-image"
+        width="400"
+        height="533"
+      />
+      <div class="banner__version">V.24</div>
+    </div>
+  </section>
+  <section id="selected-work"></section>
+  <section id="insights"></section>
+  <section id="cta-subscibe"></section>
 </Layout>
+
+<style>
+  .banner {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: var(--gutter-4xl) var(--gutter-xl);
+    max-width: var(--screen-xl);
+    gap: var(--space-3xl);
+  }
+
+  .banner__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .banner__intro {
+    font-size: var(--text-sm);
+    color: var(--primary-400);
+    font-weight: 500;
+  }
+
+  .banner__title {
+    font-size: var(--text-5xl);
+    color: var(--secondary-900);
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  .banner__desc {
+    font-size: var(--text-base);
+    color: var(--secondary-400);
+    margin-block: var(--gutter-xl);
+  }
+
+  .banner__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--gutter-md);
+  }
+
+  .banner__view-work,
+  .banner__get-in-touch {
+    min-height: var(--gutter-md);
+  }
+
+  .banner__arrow {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .button:hover .banner__arrow {
+    transform: translateX(var(--space-sm));
+  }
+
+  .banner__persona {
+    position: relative;
+    display: inline-block;
+  }
+
+  .banner__image {
+    width: 100%;
+    height: auto;
+  }
+
+  .banner__version {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-500);
+    transform: translate(-15px, 15px);
+    padding: var(--gutter-md);
+    font-size: var(--text-2xl);
+    font-weight: bold;
+    letter-spacing: 0.04rem;
+    color: var(--neutral-50);
+  }
+</style>
