@@ -11,7 +11,7 @@ import ArrowUpRight from '@/assets/icons/ArrowUpRight.astro';
     </p>
   </div>
   <div class="insight-card__tags">
-    <span class="insight-card__tag">ENGINEERING</span>
+    <span class="insight-card__tag tag">ENGINEERING</span>
     <ArrowUpRight color="var(--neutral-600)" size="24" stroke-width="2" />
   </div>
 </div>
@@ -26,18 +26,19 @@ import ArrowUpRight from '@/assets/icons/ArrowUpRight.astro';
 
   .insight-card__date {
     font-size: var(--text-xs);
-    color: var(--secondary-300);
+    color: var(--neutral-500);
     margin-block: 0;
   }
 
   .insight-card__title {
     font-size: var(--text-xl);
     margin-block: 0.5rem;
+    color: var(--neutral-800);
   }
 
   .insight-card__desc {
     margin-block: 0;
-    color: var(--secondary-300);
+    color: var(--neutral-600);
     font-size: var(--text-sm);
   }
 
@@ -51,8 +52,6 @@ import ArrowUpRight from '@/assets/icons/ArrowUpRight.astro';
 
   .insight-card__tag {
     color: var(--neutral-600);
-    font-size: var(--text-xs);
-    padding: var(--space-xs) var(--space-md);
     background-color: var(--neutral-200);
   }
 
@@ -78,11 +77,6 @@ import ArrowUpRight from '@/assets/icons/ArrowUpRight.astro';
 
     .insight-card__desc {
       font-size: var(--text-base);
-    }
-
-    .insight-card__tag {
-      font-size: var(--text-sm);
-      padding: var(--space-sm) var(--space-lg);
     }
   }
 </style>
